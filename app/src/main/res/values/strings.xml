@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Il nome dell'applicazione visualizzato sulla home del telefono -->
+    <string name="app_name">NautiWind</string>
+
+    <!-- Puoi aggiungere qui altre stringhe per rendere il codice più pulito -->
+    <string name="title_situazione_mari">Situazione Mari Italia</string>
+    <string name="btn_torna_italia">Torna alla Mappa Italia</string>
+    <string name="btn_chiudi">Chiudi</string>
+    <string name="label_previsioni">Previsioni:</string>
+    <string name="errore_caricamento">Errore nel caricamento dei dati</string>
+</resources>

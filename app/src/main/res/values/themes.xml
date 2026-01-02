@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Tema principale dell'applicazione -->
+    <style name="Theme.MeteoMare" parent="android:Theme.Material.Light.NoActionBar">
+        <!-- Puoi personalizzare i colori primari qui se necessario -->
+        <item name="android:statusBarColor">#E0F7FA</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <!-- Tema specifico per la Splash Screen (Schermata di avvio) -->
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <!-- Colore dello sfondo della splash screen (Azzurro NautiWind) -->
+        <item name="windowSplashScreenBackground">#E0F7FA</item>
+
+        <!-- L'icona al centro (usiamo la tua ic_launcher) -->
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+
+        <!-- Il tema da applicare automaticamente al termine del caricamento -->
+        <item name="postSplashScreenTheme">@style/Theme.MeteoMare</item>
+    </style>
+
+</resources>
