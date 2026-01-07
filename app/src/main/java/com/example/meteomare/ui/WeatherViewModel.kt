@@ -71,63 +71,81 @@ class WeatherViewModel : ViewModel() {
 
 
                     // TOSCANA
-                    MarePunto("Viareggio", "Toscana", 43.8, 10.2, xOffset = -40, yOffset = -100,
-                        // urlWebcam = ""
+                    MarePunto("Viareggio", "Toscana", 43.86, 10.18, xOffset = -140, yOffset = -90,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/toscana/lucca/viareggio.html"
                     ),
-                    MarePunto("Elba", "Toscana", 42.7, 10.2, xOffset = -90, yOffset = 80,
-                        // urlWebcam = ""
+                    MarePunto("Elba", "Toscana", 42.82, 10.35, xOffset = -120, yOffset = 100,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/toscana/livorno/isola-elba.html"
                     ),
-                    MarePunto("Grosseto", "Toscana", 42.7, 11.0, xOffset = 70, yOffset = 110,
-                        // urlWebcam = ""
+                    MarePunto("Grosseto", "Toscana", 42.70, 10.95, xOffset = -5, yOffset = 165,
+                        urlWebcam = "https://www.vedetta.org/webcam/toscana/grosseto/marina-di-grosseto/"
                     ),
 
+
                     // LAZIO
-                    MarePunto("Civitavecchia", "Lazio", 42.1, 11.7, xOffset = -150, yOffset = -20,
+                    MarePunto("Civitavecchia", "Lazio", 42.08, 11.75, xOffset = -150, yOffset = -20,
                         urlWebcam = "https://myearthcam.com/darsenaromanacv"
                     ),
-                    MarePunto("Anzio", "Lazio", 41.4, 12.6, xOffset = -20, yOffset = 90,
+                    MarePunto("Anzio", "Lazio", 41.42, 12.60, xOffset = -20, yOffset = 90,
                         urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/lazio/roma/anzio.html"),
-                    MarePunto("Latina", "Lazio", 41.4, 12.9, xOffset = 60, yOffset = 115,
+                    MarePunto("Latina", "Lazio", 41.38, 12.85, xOffset = 60, yOffset = 115,
                         urlWebcam = "https://vedetta.org/webcam/italia/lazio/latina/lido-di-latina/"),
-                    MarePunto("Gaeta", "Lazio", 41.2, 13.5, xOffset = 140, yOffset = 140,
+                    MarePunto("Gaeta", "Lazio", 41.18, 13.55, xOffset = 140, yOffset = 140,
                         urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/lazio/latina/gaeta.html"),
 
                     // CAMPANIA
-                    MarePunto("Mondragone", "Campania", 41.1, 13.8, xOffset = -140, yOffset = -80,
-                        // urlWebcam = ""
+                    MarePunto("Mondragone", "Campania", 41.08, 13.85, xOffset = -140, yOffset = -80,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/campania/caserta/mondragone.html"
                     ),
-                    MarePunto("Ischitella", "Campania", 40.9, 14.0, xOffset = -130, yOffset = -40,
-                        urlWebcam = "https://vedetta.org/webcam/italia/campania/caserta/ischitella/"),
-                    MarePunto("Napoli", "Campania", 40.8, 14.2, xOffset = -100, yOffset = 30,
-                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/campania/napoli/napoli-posillipo.html"),
-                    MarePunto("Salerno", "Campania", 40.6, 14.7, xOffset = 10, yOffset = 120,
-                        // urlWebcam = ""
+                    MarePunto("Ischitella", "Campania", 40.92, 13.98, xOffset = -130, yOffset = -40,
+                        urlWebcam = "https://vedetta.org/webcam/italia/campania/caserta/ischitella/"
                     ),
-                    MarePunto("Camerota", "Campania", 40.0, 15.2, xOffset = 130, yOffset = 200,
+                    MarePunto("Napoli", "Campania", 40.81, 14.28, xOffset = -100, yOffset = 30,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/campania/napoli/napoli-posillipo.html"
+                    ),
+                    MarePunto("Salerno", "Campania", 40.65, 14.72, xOffset = 10, yOffset = 120,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/campania/salerno/porto-salerno.html"
+                    ),
+                    MarePunto("Camerota", "Campania", 39.98, 15.25, xOffset = 130, yOffset = 200,
                         urlWebcam = "https://vedetta.org/webcam/italia/campania/salerno/camerota-ovest/"
                     ),
 
                     // PUGLIA
-                    MarePunto("Vieste", "Puglia", 41.8, 16.1, xOffset = -40, yOffset = -140,
-                        // urlWebcam = ""
+                    MarePunto("Vieste", "Puglia", 41.92, 16.20, xOffset = -45, yOffset = -100,
+                        urlWebcam = "https://www.vedetta.org/webcam/puglia/foggia/vieste-spiaggia-del-castello/"
                     ),
-                    MarePunto("Bari", "Puglia", 41.1, 16.8, xOffset = 0, yOffset = 0,
-                        // urlWebcam = ""
+                    MarePunto("Bari", "Puglia", 41.15, 16.92, xOffset = 15, yOffset = -25,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/puglia/bari/lungomare-bari.html"
                     ),
-                    MarePunto("Gallipoli", "Puglia", 40.0, 17.9, xOffset = 90, yOffset = 180,
-                        // urlWebcam = ""
+                    MarePunto("Lecce (S.Cataldo)", "Puglia", 40.40, 18.32, xOffset = 160, yOffset = 50,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/puglia/lecce/marina-di-lecce.html"
+                    ),
+                    MarePunto("Gallipoli", "Puglia", 40.05, 17.90, xOffset = 135, yOffset = 170,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/puglia/lecce/gallipoli.html"
                     ),
 
+
+
                     // SICILIA
-                    MarePunto("Palermo", "Sicilia", 38.1, 13.3, xOffset = -90, yOffset = -90,
-                        // urlWebcam = ""
+                    MarePunto("Palermo", "Sicilia", 38.15, 13.35, xOffset = -90, yOffset = -90,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/sicilia/palermo/mondello.html"
                     ),
-                    MarePunto("Catania", "Sicilia", 37.5, 15.1, xOffset = 130, yOffset = 40,
-                        // urlWebcam = ""
+                    MarePunto("San Vito Lo Capo", "Sicilia", 38.18, 12.73, xOffset = -160, yOffset = -60,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/sicilia/trapani/san-vito-lo-capo.html"
                     ),
-                    MarePunto("Mazara", "Sicilia", 37.6, 12.5, xOffset = -140, yOffset = 100,
-                        // urlWebcam = ""
+                    MarePunto("Mazara", "Sicilia", 37.62, 12.55, xOffset = -140, yOffset = 100,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/sicilia/trapani/mazara-del-vallo.html"
                     ),
+                    MarePunto("Catania", "Sicilia", 37.48, 15.15, xOffset = 130, yOffset = 40,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/sicilia/catania/piazza-duomo-catania.html"
+                    ),
+                    MarePunto("Siracusa", "Sicilia", 37.02, 15.32, xOffset = 145, yOffset = 120,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/sicilia/siracusa/ortigia.html"
+                    ),
+                    MarePunto("Capo d'Orlando", "Sicilia", 38.16, 14.75, xOffset = 60, yOffset = -115,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/sicilia/messina/capo-dorlando.html"
+                    ),
+
 
                     // SARDEGNA
                     MarePunto("Alghero", "Sardegna", 40.5, 8.3, xOffset = -130, yOffset = -40,
