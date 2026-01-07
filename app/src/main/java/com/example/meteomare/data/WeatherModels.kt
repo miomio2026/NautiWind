@@ -20,11 +20,13 @@ data class WeatherHourly(@SerialName("wind_direction_10m") val windDirection: Li
 
 data class MarePunto(
     val nome: String,
-    val regione: String, // <--- Aggiunto per il filtro
+    val regione: String,
     val lat: Double,
     val lon: Double,
     val previsioniOnde: List<Double> = emptyList(),
     val direzioniVento: List<Double> = emptyList(),
     val xOffset: Int,
-    val yOffset: Int
+    val yOffset: Int,
+    val urlWebcam: String? = null // <--- AGGIUNGI QUESTO
 )
+
