@@ -127,121 +127,166 @@ class WeatherViewModel : ViewModel() {
 
 
                     // SICILIA
-                    MarePunto("Palermo", "Sicilia", 38.15, 13.35, xOffset = -90, yOffset = -90,
+                    MarePunto("Palermo", "Sicilia", 38.15, 13.35, xOffset = -30, yOffset = -60,
                         urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/sicilia/palermo/mondello.html"
                     ),
-                    MarePunto("San Vito Lo Capo", "Sicilia", 38.18, 12.73, xOffset = -160, yOffset = -60,
+                    MarePunto("San Vito Lo Capo", "Sicilia", 38.18, 12.73, xOffset = -120, yOffset = -60,
                         urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/sicilia/trapani/san-vito-lo-capo.html"
                     ),
-                    MarePunto("Mazara", "Sicilia", 37.62, 12.55, xOffset = -140, yOffset = 100,
+                    MarePunto("Mazara", "Sicilia", 37.62, 12.55, xOffset = -140, yOffset = 40,
                         urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/sicilia/trapani/mazara-del-vallo.html"
                     ),
-                    MarePunto("Catania", "Sicilia", 37.48, 15.15, xOffset = 130, yOffset = 40,
+                    MarePunto("Agrigento (S.Leone)", "Sicilia", 37.25, 13.58, xOffset = -40, yOffset = 105,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/sicilia/agrigento/san-leone.html"
+                    ),
+                    MarePunto("Marina di Ragusa", "Sicilia", 36.78, 14.55, xOffset = 80, yOffset = 160,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/sicilia/ragusa/marina-di-ragusa.html"
+                    ),
+                    MarePunto("Catania", "Sicilia", 37.48, 15.15, xOffset = 160, yOffset = 40,
                         urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/sicilia/catania/piazza-duomo-catania.html"
                     ),
-                    MarePunto("Siracusa", "Sicilia", 37.02, 15.32, xOffset = 145, yOffset = 120,
+                    MarePunto("Siracusa", "Sicilia", 37.02, 15.32, xOffset = 175, yOffset = 90,
                         urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/sicilia/siracusa/ortigia.html"
                     ),
-                    MarePunto("Capo d'Orlando", "Sicilia", 38.16, 14.75, xOffset = 60, yOffset = -115,
+                    MarePunto("Capo d'Orlando", "Sicilia", 38.16, 14.75, xOffset = 100, yOffset = -65,
                         urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/sicilia/messina/capo-dorlando.html"
                     ),
 
 
+
                     // SARDEGNA
-                    MarePunto("Alghero", "Sardegna", 40.5, 8.3, xOffset = -130, yOffset = -40,
-                        // urlWebcam = ""
+                    MarePunto("Alghero", "Sardegna", 40.58, 8.22, xOffset = -160, yOffset = -130,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/sardegna/sassari/alghero.html"
                     ),
-                    MarePunto("Olbia", "Sardegna", 40.9, 9.5, xOffset = 130, yOffset = -70,
-                        // urlWebcam = ""
+                    MarePunto("Stintino", "Sardegna", 40.95, 8.20, xOffset = -160, yOffset = -200,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/sardegna/sassari/stintino.html"
                     ),
-                    MarePunto("Cagliari", "Sardegna", 39.2, 9.1, xOffset = 0, yOffset = 180,
-                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/sardegna/cagliari/poetto.html"),
+                    MarePunto("Castelsardo", "Sardegna", 40.92, 8.70, xOffset = -70, yOffset = -220,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/sardegna/sassari/castelsardo.html"
+                    ),
+                    MarePunto("Olbia", "Sardegna", 40.95, 9.60, xOffset = 150, yOffset = -210,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/sardegna/olbia-tempio/olbia.html"
+                    ),
+                    MarePunto("Cala Gonone", "Sardegna", 40.28, 9.65, xOffset = 160, yOffset = 20,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/sardegna/nuoro/cala-gonone.html"
+                    ),
+                    MarePunto("Villasimius", "Sardegna", 39.10, 9.55, xOffset = 140, yOffset = 270,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/sardegna/cagliari/villasimius.html"
+                    ),
+                    MarePunto("Cagliari", "Sardegna", 39.18, 9.15, xOffset = 30, yOffset = 260,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/sardegna/cagliari/poetto.html"
+                    ),
+                    MarePunto("Sant'Antioco", "Sardegna", 38.95, 8.35, xOffset = -50, yOffset = 320,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/sardegna/carbonia-iglesias/calasetta.html"
+                    ),
+                    MarePunto("Oristano", "Sardegna", 39.90, 8.40, xOffset = -120, yOffset = 80,
+                        urlWebcam = "https://www.vedetta.org/webcam/sardegna/oristano/torre-grande/"
+                    ),
+
 
                     // MARCHE
-                    MarePunto("Pesaro", "Marche", 43.9, 12.9, xOffset = -80, yOffset = -120,
-                        // urlWebcam = ""
+                    MarePunto("Pesaro", "Marche", 43.95, 12.95, xOffset = -10, yOffset = -200,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/marche/pesaro-urbino/pesaro.html"
                     ),
-                    MarePunto("Ancona", "Marche", 43.6, 13.5, xOffset = 0, yOffset = 0,
-                        // urlWebcam = ""
+                    MarePunto("Ancona", "Marche", 43.62, 13.55, xOffset = 110, yOffset = -100,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/marche/ancona/porto-ancona.html"
                     ),
-                    MarePunto("S.Benedetto", "Marche", 42.9, 13.8, xOffset = 50, yOffset = 150,
-                        // urlWebcam = ""
+                    MarePunto("S.Benedetto", "Marche", 42.95, 13.92, xOffset = 180, yOffset = 125,
+                        urlWebcam = "https://www.whatsupcams.com/it/webcams/italia/marche/san-benedetto-del-tronto/san-benedetto-del-tronto-spiaggia/"
                     ),
+
 
                     // ABRUZZO
-                    MarePunto("Pescara", "Abruzzo", 42.4, 14.2, xOffset = -50, yOffset = -50,
-                        // urlWebcam = ""
+                    MarePunto("Pescara", "Abruzzo", 42.48, 14.25, xOffset = 80, yOffset = -50,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/abruzzo/pescara/pescara-beach.html"
                     ),
-                    MarePunto("Vasto", "Abruzzo", 42.1, 14.7, xOffset = 50, yOffset = 50,
-                        // urlWebcam = ""
+                    MarePunto("Vasto", "Abruzzo", 42.12, 14.75, xOffset = 185, yOffset = 40,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/abruzzo/chieti/vasto-marina.html"
                     ),
-                    MarePunto("Giulianova", "Abruzzo", 42.7, 14.0, xOffset = -80, yOffset = -130,
-                        // urlWebcam = ""
+                    MarePunto("Giulianova", "Abruzzo", 42.75, 14.02, xOffset = 30, yOffset = -150,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/abruzzo/teramo/giulianova-lido.html"
                     ),
+
 
                     // EMILIA
-                    MarePunto("Rimini", "Emilia", 44.0, 12.5, xOffset = 0, yOffset = 0,
-                        // urlWebcam = ""
+                    MarePunto("Rimini", "Emilia", 44.08, 12.62, xOffset = 180, yOffset = 80,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/emilia-romagna/rimini/rimini-marina-centro.html"
                     ),
-                    MarePunto("Cesenatico", "Emilia", 44.2, 12.4, xOffset = -60, yOffset = -80,
-                        // urlWebcam = ""
+                    MarePunto("Cesenatico", "Emilia", 44.22, 12.45, xOffset = 170, yOffset = 20,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/emilia-romagna/forli-cesena/cesenatico.html"
                     ),
-                    MarePunto("Comacchio", "Emilia", 44.7, 12.2, xOffset = 40, yOffset = -150,
-                        // urlWebcam = ""
+                    MarePunto("Comacchio", "Emilia", 44.68, 12.28, xOffset = 160, yOffset = -50,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/emilia-romagna/ferrara/lido-di-pomposa.html"
                     ),
+
 
                     // VENETO
-                    MarePunto("Venezia", "Veneto", 45.4, 12.3, xOffset = 0, yOffset = 0,
-                        // urlWebcam = ""
+                    MarePunto("Venezia (Lido)", "Veneto",45.38, 12.45, xOffset = 90, yOffset = 110,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/veneto/venezia/venezia-lido.html"
                     ),
-                    MarePunto("Caorle", "Veneto", 45.6, 12.8, xOffset = 80, yOffset = -60,
-                        // urlWebcam = ""
+                    MarePunto("Jesolo", "Veneto", 45.48, 12.68, xOffset = 130, yOffset = 80,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/veneto/venezia/jesolo-lido.html"
                     ),
-                    MarePunto("Jesolo", "Veneto", 45.5, 12.6, xOffset = -80, yOffset = -40,
-                        // urlWebcam = ""
+                    MarePunto("Caorle", "Veneto", 45.55, 12.92, xOffset = 170, yOffset = 50,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/veneto/venezia/caorle.html"
                     ),
+
 
                     // FRIULI V.G.
-                    MarePunto("Trieste", "Friuli V.G.", 45.6, 13.7, xOffset = 0, yOffset = 0,
-                        // urlWebcam = ""
+                    MarePunto("Trieste", "Friuli V.G.", 45.62, 13.72, xOffset = 160, yOffset = 185,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/friuli-venezia-giulia/trieste/piazza-unita-italia.html"
                     ),
-                    MarePunto("Grado", "Friuli V.G.", 45.6, 13.3, xOffset = -100, yOffset = 20,
-                        // urlWebcam = ""
+                    MarePunto("Grado", "Friuli V.G.", 45.65, 13.38, xOffset = 75, yOffset = 170,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/friuli-venezia-giulia/gorizia/grado.html"
                     ),
-                    MarePunto("Lignano", "Friuli V.G.", 45.6, 13.1, xOffset = -150, yOffset = -30,
-                        // urlWebcam = ""
+                    MarePunto("Lignano", "Friuli V.G.", 45.63, 13.15, xOffset = 10, yOffset = 170,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/friuli-venezia-giulia/udine/lignano-sabbiadoro.html"
                     ),
+
 
                     // MOLISE
-                    MarePunto("Termoli", "Molise", 42.0, 15.0, xOffset = 0, yOffset = 0,
-                        // urlWebcam = ""
+                    MarePunto("Termoli", "Molise", 42.02, 15.05, xOffset = 110, yOffset = -135,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/molise/campobasso/termoli.html"
                     ),
-                    MarePunto("Campomarino", "Molise", 41.9, 15.0, xOffset = 0, yOffset = 80,
-                        // urlWebcam = ""
+                    MarePunto("Campomarino", "Molise", 41.95, 15.08, xOffset = 160, yOffset = -110,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/molise/campobasso/campomarino-lido.html"
                     ),
+
+
 
                     // BASILICATA
-                    MarePunto("Maratea", "Basilicata", 39.9, 15.7, xOffset = 0, yOffset = 0,
-                        // urlWebcam = ""
+                    MarePunto("Maratea", "Basilicata", 39.98, 15.65, xOffset = -140, yOffset = 200,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/basilicata/potenza/maratea.html"
                     ),
-                    MarePunto("Scanzano", "Basilicata", 40.2, 16.7, xOffset = 100, yOffset = -100,
-                        // urlWebcam = ""
+                    MarePunto("Scanzano", "Basilicata", 40.22, 16.75, xOffset = 180, yOffset = 100,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/basilicata/matera/lido-di-metaponto.html"
                     ),
-                    MarePunto("Policoro", "Basilicata", 40.1, 16.7, xOffset = 120, yOffset = 50,
-                        // urlWebcam = ""
+                    MarePunto("Policoro", "Basilicata", 40.15, 16.72, xOffset = 160, yOffset = 160,
+                        urlWebcam = "https://www.meteosystem.com/wlive/webcam.php?webcam=policoro"
                     ),
 
+
                     // CALABRIA
-                    MarePunto("Tropea", "Calabria", 38.6, 15.8, xOffset = -80, yOffset = 50,
-                        // urlWebcam = ""
+                    MarePunto("Praia a Mare", "Calabria", 39.90, 15.72, xOffset = -160, yOffset = -210,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/calabria/cosenza/praia-a-mare.html"
                     ),
-                    MarePunto("Reggio C.", "Calabria", 38.1, 15.6, xOffset = 0, yOffset = 200,
-                        // urlWebcam = ""
+                    MarePunto("Tropea", "Calabria", 38.68, 15.85, xOffset = -170, yOffset = 100,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/calabria/vibo-valentia/tropea.html"
                     ),
-                    MarePunto("Catanzaro", "Calabria", 38.8, 16.6, xOffset = 120, yOffset = 80,
-                        // urlWebcam = ""
+                    MarePunto("Scilla", "Calabria", 38.26, 15.70, xOffset = -180, yOffset = 230,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/calabria/reggio-calabria/scilla.html"
+                    ),
+                    MarePunto("Reggio C.", "Calabria", 38.12, 15.62, xOffset = -180, yOffset = 300,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/calabria/reggio-calabria/reggio-calabria-lungomare.html"
+                    ),
+                    MarePunto("Catanzaro Lido", "Calabria", 38.82, 16.65, xOffset = 50, yOffset = 100,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/calabria/catanzaro/catanzaro-lido.html"
+                    ),
+                    MarePunto("Cirò Marina", "Calabria", 39.38, 17.15, xOffset = 160, yOffset = -100,
+                        urlWebcam = "https://www.meteosystem.com/wlive/webcam.php?webcam=ciromarina"
                     )
                 )
+
 
                 val taskRisultati = listaPunti.map { punto ->
                     async {

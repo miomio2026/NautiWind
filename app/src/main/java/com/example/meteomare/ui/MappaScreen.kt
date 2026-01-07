@@ -278,7 +278,7 @@ fun SimboloOndaInternal(punto: MarePunto, oraIndex: Int, modifier: Modifier) {
         altezzaAttuale < 1.2 -> Color(0xFF1976D2)
         else -> Color(0xFFD32F2F)
     }
-    val testoADestra = punto.nome in listOf("Emilia", "Marche", "Abruzzo", "Molise", "Sardegna", "Mondragone", "Ischitella")
+    val testoADestra = punto.nome in listOf("Emilia", "Marche", "Abruzzo", "Molise", "Sardegna", "Mondragone", "Ischitella", "Sant'Antioco")
 
     if (testoADestra) {
         Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
