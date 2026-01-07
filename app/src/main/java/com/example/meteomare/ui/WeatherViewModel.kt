@@ -60,14 +60,15 @@ class WeatherViewModel : ViewModel() {
 
                     // --- LOCALITÀ DETTAGLIATE (Mappe Regionali) ---
                     // LIGURIA
-                    MarePunto("Sanremo", "Liguria", 43.8, 7.7, xOffset = -120, yOffset = 60,
+                    MarePunto("Sanremo", "Liguria", 43.75, 7.78, xOffset = -175, yOffset = 125,
                         urlWebcam = "https://www.vedetta.org/webcam/liguria/imperia/sanremo/"),
-                    MarePunto("Genova", "Liguria", 44.4, 8.9, xOffset = 0, yOffset = -40,
-                        // urlWebcam = ""
+                    MarePunto("Genova", "Liguria", 44.35, 8.95, xOffset = 0, yOffset = -5,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/liguria/genova/genova-boccadasse.html"
                     ),
-                    MarePunto("La Spezia", "Liguria", 44.1, 9.8, xOffset = 110, yOffset = 30,
-                        // urlWebcam = ""
+                    MarePunto("La Spezia", "Liguria", 44.05, 9.85, xOffset = 160, yOffset = 70,
+                        urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/liguria/la-spezia/lerici.html"
                     ),
+
 
                     // TOSCANA
                     MarePunto("Viareggio", "Toscana", 43.8, 10.2, xOffset = -40, yOffset = -100,
