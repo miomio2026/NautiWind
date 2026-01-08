@@ -2,6 +2,7 @@ package com.example.meteomare.ui
 
 import android.content.Intent
 import android.net.Uri
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -14,7 +15,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowUp
-import androidx.compose.material.icons.filled.Videocam // Import per l'icona webcam
+import androidx.compose.material.icons.filled.Videocam
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -39,8 +40,6 @@ import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
-import androidx.compose.material.icons.filled.Videocam
-
 
 @Composable
 fun MappaScreen(viewModel: WeatherViewModel = viewModel()) {
@@ -52,6 +51,15 @@ fun MappaScreen(viewModel: WeatherViewModel = viewModel()) {
     val oraAttuale = remember { LocalTime.now().hour }
     val dataAttuale = remember { LocalDate.now() }
     val formatterGiorno = remember { DateTimeFormatter.ofPattern("EEE d", Locale.ITALIAN) }
+
+    // --- LOGICA TASTO INDIETRO ---
+    BackHandler(enabled = regioneAttiva != null) {
+        if (puntoSelezionato != null) {
+            viewModel.selezionaPunto(null)
+        } else {
+            viewModel.selezionaRegione(null)
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -139,7 +147,7 @@ fun MappaScreen(viewModel: WeatherViewModel = viewModel()) {
                     }
                 }
 
-                // --- PANNELLO PREVISIONI CON TASTO WEBCAM ---
+                // --- PANNELLO PREVISIONI ---
                 puntoSelezionato?.let { punto ->
                     Card(
                         modifier = Modifier
@@ -160,7 +168,10 @@ fun MappaScreen(viewModel: WeatherViewModel = viewModel()) {
                                         )
                                     )
                                 )
-                                .border(BorderStroke(1.dp, Color.White), RoundedCornerShape(28.dp))
+                                .border(
+                                    BorderStroke(1.dp, Color.White),
+                                    RoundedCornerShape(28.dp)
+                                )
                                 .padding(16.dp)
                         ) {
                             Column {
@@ -174,11 +185,10 @@ fun MappaScreen(viewModel: WeatherViewModel = viewModel()) {
                                         Row(verticalAlignment = Alignment.CenterVertically) {
                                             Text(punto.nome, fontWeight = FontWeight.Black, fontSize = 22.sp, color = Color(0xFF01579B))
 
-                                            // TASTO LIVE WEBCAM (Appare solo se urlWebcam esiste)
                                             if (!punto.urlWebcam.isNullOrBlank()) {
                                                 Spacer(modifier = Modifier.width(8.dp))
                                                 Surface(
-                                                    color = Color(0xFFD32F2F), // Rosso "Live"
+                                                    color = Color(0xFFD32F2F),
                                                     shape = RoundedCornerShape(50),
                                                     modifier = Modifier.clickable {
                                                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(punto.urlWebcam))
@@ -268,7 +278,6 @@ fun MappaScreen(viewModel: WeatherViewModel = viewModel()) {
     }
 }
 
-// La funzione SimboloOndaInternal rimane la stessa del tuo codice precedente...
 @Composable
 fun SimboloOndaInternal(punto: MarePunto, oraIndex: Int, modifier: Modifier) {
     val altezzaAttuale = punto.previsioniOnde.getOrNull(oraIndex) ?: 0.0
