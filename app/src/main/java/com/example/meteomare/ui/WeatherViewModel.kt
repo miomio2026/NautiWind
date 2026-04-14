@@ -53,8 +53,8 @@ class WeatherViewModel : ViewModel() {
         MarePunto("Civitavecchia", "Lazio", 42.08, 11.75, xOffset = -150, yOffset = -20, urlWebcam = "https://myearthcam.com/darsenaromanacv"),
         MarePunto("Anzio", "Lazio", 41.42, 12.60, xOffset = -20, yOffset = 90, urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/lazio/roma/anzio.html"),
         MarePunto("Latina", "Lazio", 41.38, 12.85, xOffset = 60, yOffset = 115, urlWebcam = "https://vedetta.org/webcam/italia/lazio/latina/lido-di-latina/"),
-        MarePunto("Gaeta", "Lazio", 41.18, 13.55, xOffset = 140, yOffset = 140, urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/lazio/latina/gaeta.html"),
-        MarePunto("Mondragone", "Campania", 41.08, 13.85, xOffset = -140, yOffset = -80, urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/campania/caserta/mondragone.html"),
+        MarePunto("Formia", "Lazio", 41.25, 13.61, xOffset = 140, yOffset = 140, urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/lazio/latina/spiaggia-di-formia.html"),
+        MarePunto("Castel Volturno", "Campania", 41.02, 13.92, xOffset = -140, yOffset = -80, urlWebcam = "https://vedetta.org/webcam/italia/campania/caserta/castel-volturno/"),
         MarePunto("Ischitella", "Campania", 40.92, 13.98, xOffset = -130, yOffset = -40, urlWebcam = "https://vedetta.org/webcam/italia/campania/caserta/ischitella/"),
         MarePunto("Napoli", "Campania", 40.81, 14.28, xOffset = -100, yOffset = 30, urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/campania/napoli/napoli-posillipo.html"),
         MarePunto("Salerno", "Campania", 40.65, 14.72, xOffset = 10, yOffset = 120, urlWebcam = "https://www.skylinewebcams.com/it/webcam/italia/campania/salerno/porto-salerno.html"),
@@ -138,7 +138,8 @@ class WeatherViewModel : ViewModel() {
                                     val resW = RetrofitClient.weatherApi.getWeatherData(punto.lat, punto.lon)
                                     punto.copy(
                                         previsioniOnde = resM.hourly?.waveHeight?.map { it ?: 0.0 } ?: emptyList(),
-                                        direzioniVento = resW.hourly?.windDirection?.map { it ?: 0.0 } ?: emptyList()
+                                        direzioniVento = resW.hourly?.windDirection?.map { it ?: 0.0 } ?: emptyList(),
+                                        velocitaVento = resW.hourly?.windSpeed?.map { it ?: 0.0 } ?: emptyList()
                                     )
                                 }
                             } catch (e: Exception) {

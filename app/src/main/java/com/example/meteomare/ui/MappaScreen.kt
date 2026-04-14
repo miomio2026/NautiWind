@@ -226,6 +226,7 @@ fun MappaScreen(viewModel: WeatherViewModel = viewModel()) {
                                         val labelOra = String.format("%02d:00", oraVisualizzata)
                                         val altezza = punto.previsioniOnde.getOrNull(oreTotali) ?: 0.0
                                         val dirVento = punto.direzioniVento.getOrNull(oreTotali) ?: 0.0
+                                        val velVento = punto.velocitaVento.getOrNull(oreTotali) ?: 0.0
 
                                         val colorePrevisione = when {
                                             altezza < 0.5 -> Color(0xFF00BCD4)
@@ -253,6 +254,7 @@ fun MappaScreen(viewModel: WeatherViewModel = viewModel()) {
                                                     .rotate(dirVento.toFloat() + 180f),
                                                 tint = Color(0xFF455A64)
                                             )
+                                            Text("${velVento.toInt()} km/h", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF546E7A))
                                             Text("${altezza}m", fontWeight = FontWeight.ExtraBold, fontSize = 15.sp, color = colorePrevisione)
                                         }
                                     }
@@ -287,7 +289,7 @@ fun SimboloOndaInternal(punto: MarePunto, oraIndex: Int, modifier: Modifier) {
         altezzaAttuale < 1.2 -> Color(0xFF1976D2)
         else -> Color(0xFFD32F2F)
     }
-    val testoADestra = punto.nome in listOf("Emilia", "Marche", "Abruzzo", "Molise", "Sardegna", "Mondragone", "Ischitella", "Sant'Antioco")
+    val testoADestra = punto.nome in listOf("Emilia", "Marche", "Abruzzo", "Molise", "Sardegna", "Castel Volturno", "Ischitella", "Sant'Antioco")
 
     if (testoADestra) {
         Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
