@@ -227,6 +227,7 @@ fun MappaScreen(viewModel: WeatherViewModel = viewModel()) {
                                         val altezza = punto.previsioniOnde.getOrNull(oreTotali) ?: 0.0
                                         val dirVento = punto.direzioniVento.getOrNull(oreTotali) ?: 0.0
                                         val velVento = punto.velocitaVento.getOrNull(oreTotali) ?: 0.0
+                                        val tempAcqua = punto.temperaturaAcqua.getOrNull(oreTotali) ?: 0.0
 
                                         val colorePrevisione = when {
                                             altezza < 0.5 -> Color(0xFF00BCD4)
@@ -256,6 +257,7 @@ fun MappaScreen(viewModel: WeatherViewModel = viewModel()) {
                                             )
                                             Text("${velVento.toInt()} km/h", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF546E7A))
                                             Text("${altezza}m", fontWeight = FontWeight.ExtraBold, fontSize = 15.sp, color = colorePrevisione)
+                                            Text("${tempAcqua.toInt()}°C", fontSize = 11.sp, fontWeight = FontWeight.Bold, color = Color(0xFF0288D1))
                                         }
                                     }
                                 }

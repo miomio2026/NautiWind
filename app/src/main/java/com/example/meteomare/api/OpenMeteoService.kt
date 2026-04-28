@@ -17,7 +17,7 @@ interface OpenMeteoService {
     suspend fun getMarineData(
         @Query("latitude") lat: Double,
         @Query("longitude") lon: Double,
-        @Query("hourly") hourly: String = "wave_height"
+        @Query("hourly") hourly: String = "wave_height,sea_surface_temperature"
     ): MarineResponse
 }
 

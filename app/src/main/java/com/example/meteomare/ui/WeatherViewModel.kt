@@ -139,7 +139,8 @@ class WeatherViewModel : ViewModel() {
                                     punto.copy(
                                         previsioniOnde = resM.hourly?.waveHeight?.map { it ?: 0.0 } ?: emptyList(),
                                         direzioniVento = resW.hourly?.windDirection?.map { it ?: 0.0 } ?: emptyList(),
-                                        velocitaVento = resW.hourly?.windSpeed?.map { it ?: 0.0 } ?: emptyList()
+                                        velocitaVento = resW.hourly?.windSpeed?.map { it ?: 0.0 } ?: emptyList(),
+                                        temperaturaAcqua = resM.hourly?.seaSurfaceTemperature?.map { it ?: 0.0 } ?: emptyList()
                                     )
                                 }
                             } catch (e: Exception) {

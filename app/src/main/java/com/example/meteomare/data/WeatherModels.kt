@@ -8,7 +8,8 @@ data class MarineResponse(val hourly: MarineHourly? = null)
 
 @Serializable
 data class MarineHourly(
-    @SerialName("wave_height") val waveHeight: List<Double?> = emptyList()
+    @SerialName("wave_height") val waveHeight: List<Double?> = emptyList(),
+    @SerialName("sea_surface_temperature") val seaSurfaceTemperature: List<Double?> = emptyList()
 )
 
 @Serializable
@@ -28,6 +29,7 @@ data class MarePunto(
     val previsioniOnde: List<Double> = emptyList(),
     val direzioniVento: List<Double> = emptyList(),
     val velocitaVento: List<Double> = emptyList(),
+    val temperaturaAcqua: List<Double> = emptyList(),
     val xOffset: Int,
     val yOffset: Int,
     val urlWebcam: String? = null
