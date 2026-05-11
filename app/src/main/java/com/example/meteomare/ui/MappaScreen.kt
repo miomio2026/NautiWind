@@ -15,7 +15,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -43,16 +43,24 @@ import java.time.format.DateTimeFormatter
 import java.util.Locale
 
 @Composable
-fun WeatherIconAnimata(code: Int) {
+fun WeatherIconAnimata(code: Int, isDay: Boolean = true) {
     val infiniteTransition = rememberInfiniteTransition()
 
     when (code) {
-        0 -> { // Sole
-            val angle by infiniteTransition.animateFloat(
-                initialValue = 0f, targetValue = 360f,
-                animationSpec = infiniteRepeatable(animation = tween(15000, easing = LinearEasing))
-            )
-            Icon(Icons.Default.WbSunny, null, tint = Color(0xFFFFD600), modifier = Modifier.rotate(angle).size(22.dp))
+        0 -> { // Sole o Luna
+            if (isDay) {
+                val angle by infiniteTransition.animateFloat(
+                    initialValue = 0f, targetValue = 360f,
+                    animationSpec = infiniteRepeatable(animation = tween(15000, easing = LinearEasing))
+                )
+                Icon(Icons.Outlined.WbSunny, null, tint = Color(0xFFFFD600), modifier = Modifier.rotate(angle).size(22.dp))
+            } else {
+                val tilt by infiniteTransition.animateFloat(
+                    initialValue = -15f, targetValue = 15f,
+                    animationSpec = infiniteRepeatable(animation = tween(3000), repeatMode = RepeatMode.Reverse)
+                )
+                Icon(Icons.Outlined.NightsStay, null, tint = Color(0xFFB3E5FC), modifier = Modifier.rotate(tilt).size(22.dp))
+            }
         }
         1, 2 -> { // Poco nuvoloso
             val scale by infiniteTransition.animateFloat(
@@ -60,8 +68,12 @@ fun WeatherIconAnimata(code: Int) {
                 animationSpec = infiniteRepeatable(animation = tween(2000), repeatMode = RepeatMode.Reverse)
             )
             Box(contentAlignment = Alignment.Center) {
-                Icon(Icons.Default.WbSunny, null, tint = Color(0xFFFFD600), modifier = Modifier.size(18.dp).align(Alignment.TopStart))
-                Icon(Icons.Default.Cloud, null, tint = Color(0xFFB0BEC5), modifier = Modifier.size(16.dp).align(Alignment.BottomEnd).graphicsLayer(scaleX = scale, scaleY = scale))
+                if (isDay) {
+                    Icon(Icons.Outlined.WbSunny, null, tint = Color(0xFFFFD600), modifier = Modifier.size(18.dp).align(Alignment.TopStart))
+                } else {
+                    Icon(Icons.Outlined.NightsStay, null, tint = Color(0xFFB3E5FC), modifier = Modifier.size(18.dp).align(Alignment.TopStart))
+                }
+                Icon(Icons.Outlined.Cloud, null, tint = Color(0xFFB0BEC5), modifier = Modifier.size(16.dp).align(Alignment.BottomEnd).graphicsLayer(scaleX = scale, scaleY = scale))
             }
         }
         3 -> { // Nuvoloso
@@ -69,34 +81,34 @@ fun WeatherIconAnimata(code: Int) {
                 initialValue = -2f, targetValue = 2f,
                 animationSpec = infiniteRepeatable(animation = tween(3000), repeatMode = RepeatMode.Reverse)
             )
-            Icon(Icons.Default.Cloud, null, tint = Color(0xFF90A4AE), modifier = Modifier.size(22.dp).offset(x = offset.dp))
+            Icon(Icons.Outlined.Cloud, null, tint = Color(0xFF90A4AE), modifier = Modifier.size(22.dp).offset(x = offset.dp))
         }
         51, 53, 55, 61, 63, 65, 80, 81, 82 -> { // Pioggia
             val alpha by infiniteTransition.animateFloat(
                 initialValue = 0.3f, targetValue = 1f,
                 animationSpec = infiniteRepeatable(animation = tween(1000), repeatMode = RepeatMode.Reverse)
             )
-            Icon(Icons.Default.WaterDrop, null, tint = Color(0xFF2196F3), modifier = Modifier.size(20.dp).graphicsLayer(alpha = alpha))
+            Icon(Icons.Outlined.WaterDrop, null, tint = Color(0xFF2196F3), modifier = Modifier.size(20.dp).graphicsLayer(alpha = alpha))
         }
         95, 96, 99 -> { // Temporale
             val alpha by infiniteTransition.animateFloat(
                 initialValue = 0.5f, targetValue = 1f,
                 animationSpec = infiniteRepeatable(animation = tween(200), repeatMode = RepeatMode.Reverse)
             )
-            Icon(Icons.Default.Thunderstorm, null, tint = Color(0xFF455A64), modifier = Modifier.size(22.dp).graphicsLayer(alpha = alpha))
+            Icon(Icons.Outlined.Thunderstorm, null, tint = Color(0xFF455A64), modifier = Modifier.size(22.dp).graphicsLayer(alpha = alpha))
         }
         45, 48 -> { // Nebbia
-            Icon(Icons.Default.Grain, null, tint = Color.Gray, modifier = Modifier.size(20.dp))
+            Icon(Icons.Outlined.Grain, null, tint = Color.Gray, modifier = Modifier.size(20.dp))
         }
         71, 73, 75, 77 -> { // Neve
             val angle by infiniteTransition.animateFloat(
                 initialValue = 0f, targetValue = 360f,
                 animationSpec = infiniteRepeatable(animation = tween(5000, easing = LinearEasing))
             )
-            Icon(Icons.Default.AcUnit, null, tint = Color(0xFFBBDEFB), modifier = Modifier.rotate(angle).size(20.dp))
+            Icon(Icons.Outlined.AcUnit, null, tint = Color(0xFFBBDEFB), modifier = Modifier.rotate(angle).size(20.dp))
         }
         else -> {
-            Icon(Icons.Default.WbSunny, null, tint = Color(0xFFFFD600), modifier = Modifier.size(20.dp))
+            Icon(Icons.Outlined.WbSunny, null, tint = Color(0xFFFFD600), modifier = Modifier.size(20.dp))
         }
     }
 }
@@ -276,7 +288,7 @@ fun MappaScreen(viewModel: WeatherViewModel = viewModel()) {
                                                         verticalAlignment = Alignment.CenterVertically,
                                                         modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
                                                     ) {
-                                                        Icon(Icons.Default.Videocam, null, tint = Color.White, modifier = Modifier.size(14.dp))
+                                                        Icon(Icons.Outlined.Videocam, null, tint = Color.White, modifier = Modifier.size(14.dp))
                                                         Spacer(modifier = Modifier.width(4.dp))
                                                         Text("LIVE CAM", color = Color.White, fontSize = 9.sp, fontWeight = FontWeight.Bold)
                                                     }
@@ -326,7 +338,7 @@ fun MappaScreen(viewModel: WeatherViewModel = viewModel()) {
                                             Text(labelGiorno.uppercase(), fontSize = 8.sp, fontWeight = FontWeight.Black, color = if (giorniDaAggiungere == 0) Color.Gray else Color(0xFF388E3C))
                                             Text(labelOra, fontSize = 11.sp, fontWeight = FontWeight.Medium, color = Color.Black)
                                             Icon(
-                                                imageVector = Icons.Default.KeyboardArrowUp,
+                                                imageVector = Icons.Outlined.KeyboardArrowUp,
                                                 contentDescription = null,
                                                 modifier = Modifier
                                                     .size(20.dp)
@@ -337,7 +349,7 @@ fun MappaScreen(viewModel: WeatherViewModel = viewModel()) {
                                             Text("${altezza}m", fontWeight = FontWeight.ExtraBold, fontSize = 15.sp, color = colorePrevisione)
                                             Text("${tempAcqua.toInt()}°C", fontSize = 11.sp, fontWeight = FontWeight.Bold, color = Color(0xFF0288D1))
                                             Spacer(modifier = Modifier.height(4.dp))
-                                            WeatherIconAnimata(wCode)
+                                            WeatherIconAnimata(wCode, oraVisualizzata in 6..20)
                                         }
                                     }
                                 }
@@ -379,7 +391,7 @@ fun SimboloOndaInternal(punto: MarePunto, oraIndex: Int, modifier: Modifier) {
                 Box(modifier = Modifier
                     .size(34.dp)
                     .background(colore, CircleShape))
-                Icon(Icons.Default.KeyboardArrowUp, null, tint = Color.White, modifier = Modifier
+                Icon(Icons.Outlined.KeyboardArrowUp, null, tint = Color.White, modifier = Modifier
                     .size(22.dp)
                     .rotate(direzioneVento.toFloat() + 180f))
             }
@@ -400,7 +412,7 @@ fun SimboloOndaInternal(punto: MarePunto, oraIndex: Int, modifier: Modifier) {
                 Box(modifier = Modifier
                     .size(34.dp)
                     .background(colore, CircleShape))
-                Icon(Icons.Default.KeyboardArrowUp, null, tint = Color.White, modifier = Modifier
+                Icon(Icons.Outlined.KeyboardArrowUp, null, tint = Color.White, modifier = Modifier
                     .size(22.dp)
                     .rotate(direzioneVento.toFloat() + 180f))
             }
