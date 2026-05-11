@@ -3,6 +3,7 @@ package com.example.meteomare.ui
 import android.content.Intent
 import android.net.Uri
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -14,8 +15,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowUp
-import androidx.compose.material.icons.filled.Videocam
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -25,6 +25,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -40,6 +41,82 @@ import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
+
+@Composable
+fun WeatherIconAnimata(code: Int) {
+    val infiniteTransition = rememberInfiniteTransition()
+
+    when (code) {
+        0 -> { // Sole
+            val angle by infiniteTransition.animateFloat(
+                initialValue = 0f, targetValue = 360f,
+                animationSpec = infiniteRepeatable(animation = tween(15000, easing = LinearEasing))
+            )
+            Icon(Icons.Default.WbSunny, null, tint = Color(0xFFFFD600), modifier = Modifier.rotate(angle).size(22.dp))
+        }
+        1, 2 -> { // Poco nuvoloso
+            val scale by infiniteTransition.animateFloat(
+                initialValue = 0.9f, targetValue = 1.1f,
+                animationSpec = infiniteRepeatable(animation = tween(2000), repeatMode = RepeatMode.Reverse)
+            )
+            Box(contentAlignment = Alignment.Center) {
+                Icon(Icons.Default.WbSunny, null, tint = Color(0xFFFFD600), modifier = Modifier.size(18.dp).align(Alignment.TopStart))
+                Icon(Icons.Default.Cloud, null, tint = Color(0xFFB0BEC5), modifier = Modifier.size(16.dp).align(Alignment.BottomEnd).graphicsLayer(scaleX = scale, scaleY = scale))
+            }
+        }
+        3 -> { // Nuvoloso
+            val offset by infiniteTransition.animateFloat(
+                initialValue = -2f, targetValue = 2f,
+                animationSpec = infiniteRepeatable(animation = tween(3000), repeatMode = RepeatMode.Reverse)
+            )
+            Icon(Icons.Default.Cloud, null, tint = Color(0xFF90A4AE), modifier = Modifier.size(22.dp).offset(x = offset.dp))
+        }
+        51, 53, 55, 61, 63, 65, 80, 81, 82 -> { // Pioggia
+            val alpha by infiniteTransition.animateFloat(
+                initialValue = 0.3f, targetValue = 1f,
+                animationSpec = infiniteRepeatable(animation = tween(1000), repeatMode = RepeatMode.Reverse)
+            )
+            Icon(Icons.Default.WaterDrop, null, tint = Color(0xFF2196F3), modifier = Modifier.size(20.dp).graphicsLayer(alpha = alpha))
+        }
+        95, 96, 99 -> { // Temporale
+            val alpha by infiniteTransition.animateFloat(
+                initialValue = 0.5f, targetValue = 1f,
+                animationSpec = infiniteRepeatable(animation = tween(200), repeatMode = RepeatMode.Reverse)
+            )
+            Icon(Icons.Default.Thunderstorm, null, tint = Color(0xFF455A64), modifier = Modifier.size(22.dp).graphicsLayer(alpha = alpha))
+        }
+        45, 48 -> { // Nebbia
+            Icon(Icons.Default.Grain, null, tint = Color.Gray, modifier = Modifier.size(20.dp))
+        }
+        71, 73, 75, 77 -> { // Neve
+            val angle by infiniteTransition.animateFloat(
+                initialValue = 0f, targetValue = 360f,
+                animationSpec = infiniteRepeatable(animation = tween(5000, easing = LinearEasing))
+            )
+            Icon(Icons.Default.AcUnit, null, tint = Color(0xFFBBDEFB), modifier = Modifier.rotate(angle).size(20.dp))
+        }
+        else -> {
+            Icon(Icons.Default.WbSunny, null, tint = Color(0xFFFFD600), modifier = Modifier.size(20.dp))
+        }
+    }
+}
+
+fun getWeatherSymbol(code: Int): String {
+    return when (code) {
+        0 -> "☀️" // Sereno
+        1, 2 -> "🌤️" // Quasi sereno / Poco nuvoloso
+        3 -> "☁️" // Nuvoloso
+        45, 48 -> "🌫️" // Nebbia
+        51, 53, 55 -> "🌦️" // Pioggerellina
+        61, 63, 65 -> "🌧️" // Pioggia
+        71, 73, 75 -> "🌨️" // Neve
+        77 -> "❄️" // Granelli di neve
+        80, 81, 82 -> "🌦️" // Rovesci di pioggia
+        85, 86 -> "🌨️" // Rovesci di neve
+        95, 96, 99 -> "⛈️" // Temporale
+        else -> "☀️"
+    }
+}
 
 @Composable
 fun MappaScreen(viewModel: WeatherViewModel = viewModel()) {
@@ -228,6 +305,7 @@ fun MappaScreen(viewModel: WeatherViewModel = viewModel()) {
                                         val dirVento = punto.direzioniVento.getOrNull(oreTotali) ?: 0.0
                                         val velVento = punto.velocitaVento.getOrNull(oreTotali) ?: 0.0
                                         val tempAcqua = punto.temperaturaAcqua.getOrNull(oreTotali) ?: 0.0
+                                        val wCode = punto.weatherCodes.getOrNull(oreTotali) ?: 0
 
                                         val colorePrevisione = when {
                                             altezza < 0.5 -> Color(0xFF00BCD4)
@@ -258,6 +336,8 @@ fun MappaScreen(viewModel: WeatherViewModel = viewModel()) {
                                             Text("${velVento.toInt()} km/h", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF546E7A))
                                             Text("${altezza}m", fontWeight = FontWeight.ExtraBold, fontSize = 15.sp, color = colorePrevisione)
                                             Text("${tempAcqua.toInt()}°C", fontSize = 11.sp, fontWeight = FontWeight.Bold, color = Color(0xFF0288D1))
+                                            Spacer(modifier = Modifier.height(4.dp))
+                                            WeatherIconAnimata(wCode)
                                         }
                                     }
                                 }

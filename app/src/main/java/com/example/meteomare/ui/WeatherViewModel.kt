@@ -140,7 +140,8 @@ class WeatherViewModel : ViewModel() {
                                         previsioniOnde = resM.hourly?.waveHeight?.map { it ?: 0.0 } ?: emptyList(),
                                         direzioniVento = resW.hourly?.windDirection?.map { it ?: 0.0 } ?: emptyList(),
                                         velocitaVento = resW.hourly?.windSpeed?.map { it ?: 0.0 } ?: emptyList(),
-                                        temperaturaAcqua = resM.hourly?.seaSurfaceTemperature?.map { it ?: 0.0 } ?: emptyList()
+                                        temperaturaAcqua = resM.hourly?.seaSurfaceTemperature?.map { it ?: 0.0 } ?: emptyList(),
+                                        weatherCodes = resW.hourly?.weatherCode?.map { it ?: 0 } ?: emptyList()
                                     )
                                 }
                             } catch (e: Exception) {
