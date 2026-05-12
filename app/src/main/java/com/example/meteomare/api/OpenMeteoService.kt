@@ -10,7 +10,7 @@ interface OpenMeteoService {
     suspend fun getWeatherData(
         @Query("latitude") lat: Double,
         @Query("longitude") lon: Double,
-        @Query("hourly") hourly: String = "wind_direction_10m,wind_speed_10m,weather_code"
+        @Query("hourly") hourly: String = "wind_direction_10m,wind_speed_10m,weather_code,temperature_2m"
     ): WeatherResponse
 
     @GET("v1/marine")

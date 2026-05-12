@@ -19,7 +19,8 @@ data class WeatherResponse(val hourly: WeatherHourly? = null)
 data class WeatherHourly(
     @SerialName("wind_direction_10m") val windDirection: List<Double?> = emptyList(),
     @SerialName("wind_speed_10m") val windSpeed: List<Double?> = emptyList(),
-    @SerialName("weather_code") val weatherCode: List<Int?> = emptyList()
+    @SerialName("weather_code") val weatherCode: List<Int?> = emptyList(),
+    @SerialName("temperature_2m") val temperature2m: List<Double?> = emptyList()
 )
 
 data class MarePunto(
@@ -31,6 +32,7 @@ data class MarePunto(
     val direzioniVento: List<Double> = emptyList(),
     val velocitaVento: List<Double> = emptyList(),
     val temperaturaAcqua: List<Double> = emptyList(),
+    val temperaturaAmbiente: List<Double> = emptyList(),
     val weatherCodes: List<Int> = emptyList(),
     val xOffset: Int,
     val yOffset: Int,

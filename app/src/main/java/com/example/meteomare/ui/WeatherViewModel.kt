@@ -25,6 +25,14 @@ class WeatherViewModel : ViewModel() {
     private val _puntoSelezionato = MutableStateFlow<MarePunto?>(null)
     val puntoSelezionato = _puntoSelezionato.asStateFlow()
 
+    fun selezionaRegione(regione: String?) {
+        _regioneSelezionata.value = regione
+    }
+
+    fun selezionaPunto(punto: MarePunto?) {
+        _puntoSelezionato.value = punto
+    }
+
     private val databasePunti = listOf<MarePunto>(
         // --- PUNTI REGIONALI ---
         MarePunto("Liguria", "Liguria", 44.1, 9.3, xOffset = -125, yOffset = -85),
@@ -109,21 +117,16 @@ class WeatherViewModel : ViewModel() {
     )
 
     init {
-        fetchTuttiIPunti()
+        refreshData()
     }
 
-    fun selezionaRegione(nome: String?) {
-        _regioneSelezionata.value = nome
-        _puntoSelezionato.value = null
-    }
-
-    fun selezionaPunto(punto: MarePunto?) {
-        _puntoSelezionato.value = punto
-    }
-
-    // SCARICA TUTTO ALL'AVVIO (Senza lag visivo)
-    private fun fetchTuttiIPunti() {
+    fun refreshData() {
         viewModelScope.launch(Dispatchers.IO) {
+            // Se eravamo in errore, mostriamo caricamento, altrimenti aggiorniamo in background
+            if (_uiState.value is WeatherUiState.Error) {
+                _uiState.value = WeatherUiState.Loading
+            }
+            
             try {
                 // Limitiamo la banda a 4 richieste parallele per stabilità
                 val semaphore = Semaphore(4)
@@ -141,6 +144,7 @@ class WeatherViewModel : ViewModel() {
                                         direzioniVento = resW.hourly?.windDirection?.map { it ?: 0.0 } ?: emptyList(),
                                         velocitaVento = resW.hourly?.windSpeed?.map { it ?: 0.0 } ?: emptyList(),
                                         temperaturaAcqua = resM.hourly?.seaSurfaceTemperature?.map { it ?: 0.0 } ?: emptyList(),
+                                        temperaturaAmbiente = resW.hourly?.temperature2m?.map { it ?: 0.0 } ?: emptyList(),
                                         weatherCodes = resW.hourly?.weatherCode?.map { it ?: 0 } ?: emptyList()
                                     )
                                 }
@@ -153,13 +157,14 @@ class WeatherViewModel : ViewModel() {
 
                 val risultatiFinali = taskRisultati.awaitAll()
 
-                // Aggiorniamo la UI solo quando TUTTO è pronto (niente pallini che cambiano colore uno alla volta)
                 withContext(Dispatchers.Main) {
                     _uiState.value = WeatherUiState.Success(risultatiFinali)
                 }
             } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    _uiState.value = WeatherUiState.Error("Connessione instabile")
+                if (_uiState.value !is WeatherUiState.Success) {
+                    withContext(Dispatchers.Main) {
+                        _uiState.value = WeatherUiState.Error("Connessione instabile")
+                    }
                 }
             }
         }

@@ -34,6 +34,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.meteomare.R
 import com.example.meteomare.data.MarePunto
@@ -53,13 +56,13 @@ fun WeatherIconAnimata(code: Int, isDay: Boolean = true) {
                     initialValue = 0f, targetValue = 360f,
                     animationSpec = infiniteRepeatable(animation = tween(15000, easing = LinearEasing))
                 )
-                Icon(Icons.Outlined.WbSunny, null, tint = Color(0xFFFFD600), modifier = Modifier.rotate(angle).size(22.dp))
+                Icon(Icons.Outlined.WbSunny, null, tint = Color(0xFFFFD600), modifier = Modifier.rotate(angle).size(42.dp))
             } else {
                 val tilt by infiniteTransition.animateFloat(
                     initialValue = -15f, targetValue = 15f,
                     animationSpec = infiniteRepeatable(animation = tween(3000), repeatMode = RepeatMode.Reverse)
                 )
-                Icon(Icons.Outlined.NightsStay, null, tint = Color(0xFFB3E5FC), modifier = Modifier.rotate(tilt).size(22.dp))
+                Icon(Icons.Outlined.NightsStay, null, tint = Color(0xFFB3E5FC), modifier = Modifier.rotate(tilt).size(42.dp))
             }
         }
         1, 2 -> { // Poco nuvoloso
@@ -69,11 +72,11 @@ fun WeatherIconAnimata(code: Int, isDay: Boolean = true) {
             )
             Box(contentAlignment = Alignment.Center) {
                 if (isDay) {
-                    Icon(Icons.Outlined.WbSunny, null, tint = Color(0xFFFFD600), modifier = Modifier.size(18.dp).align(Alignment.TopStart))
+                    Icon(Icons.Outlined.WbSunny, null, tint = Color(0xFFFFD600), modifier = Modifier.size(36.dp).align(Alignment.TopStart))
                 } else {
-                    Icon(Icons.Outlined.NightsStay, null, tint = Color(0xFFB3E5FC), modifier = Modifier.size(18.dp).align(Alignment.TopStart))
+                    Icon(Icons.Outlined.NightsStay, null, tint = Color(0xFFB3E5FC), modifier = Modifier.size(36.dp).align(Alignment.TopStart))
                 }
-                Icon(Icons.Outlined.Cloud, null, tint = Color(0xFFB0BEC5), modifier = Modifier.size(16.dp).align(Alignment.BottomEnd).graphicsLayer(scaleX = scale, scaleY = scale))
+                Icon(Icons.Outlined.Cloud, null, tint = Color(0xFFB0BEC5), modifier = Modifier.size(30.dp).align(Alignment.BottomEnd).graphicsLayer(scaleX = scale, scaleY = scale))
             }
         }
         3 -> { // Nuvoloso
@@ -81,34 +84,34 @@ fun WeatherIconAnimata(code: Int, isDay: Boolean = true) {
                 initialValue = -2f, targetValue = 2f,
                 animationSpec = infiniteRepeatable(animation = tween(3000), repeatMode = RepeatMode.Reverse)
             )
-            Icon(Icons.Outlined.Cloud, null, tint = Color(0xFF90A4AE), modifier = Modifier.size(22.dp).offset(x = offset.dp))
+            Icon(Icons.Outlined.Cloud, null, tint = Color(0xFF90A4AE), modifier = Modifier.size(42.dp).offset(x = offset.dp))
         }
         51, 53, 55, 61, 63, 65, 80, 81, 82 -> { // Pioggia
             val alpha by infiniteTransition.animateFloat(
                 initialValue = 0.3f, targetValue = 1f,
                 animationSpec = infiniteRepeatable(animation = tween(1000), repeatMode = RepeatMode.Reverse)
             )
-            Icon(Icons.Outlined.WaterDrop, null, tint = Color(0xFF2196F3), modifier = Modifier.size(20.dp).graphicsLayer(alpha = alpha))
+            Icon(Icons.Outlined.WaterDrop, null, tint = Color(0xFF2196F3), modifier = Modifier.size(40.dp).graphicsLayer(alpha = alpha))
         }
         95, 96, 99 -> { // Temporale
             val alpha by infiniteTransition.animateFloat(
                 initialValue = 0.5f, targetValue = 1f,
                 animationSpec = infiniteRepeatable(animation = tween(200), repeatMode = RepeatMode.Reverse)
             )
-            Icon(Icons.Outlined.Thunderstorm, null, tint = Color(0xFF455A64), modifier = Modifier.size(22.dp).graphicsLayer(alpha = alpha))
+            Icon(Icons.Outlined.Thunderstorm, null, tint = Color(0xFF455A64), modifier = Modifier.size(42.dp).graphicsLayer(alpha = alpha))
         }
         45, 48 -> { // Nebbia
-            Icon(Icons.Outlined.Grain, null, tint = Color.Gray, modifier = Modifier.size(20.dp))
+            Icon(Icons.Outlined.Grain, null, tint = Color.Gray, modifier = Modifier.size(40.dp))
         }
         71, 73, 75, 77 -> { // Neve
             val angle by infiniteTransition.animateFloat(
                 initialValue = 0f, targetValue = 360f,
                 animationSpec = infiniteRepeatable(animation = tween(5000, easing = LinearEasing))
             )
-            Icon(Icons.Outlined.AcUnit, null, tint = Color(0xFFBBDEFB), modifier = Modifier.rotate(angle).size(20.dp))
+            Icon(Icons.Outlined.AcUnit, null, tint = Color(0xFFBBDEFB), modifier = Modifier.rotate(angle).size(40.dp))
         }
         else -> {
-            Icon(Icons.Outlined.WbSunny, null, tint = Color(0xFFFFD600), modifier = Modifier.size(20.dp))
+            Icon(Icons.Outlined.WbSunny, null, tint = Color(0xFFFFD600), modifier = Modifier.size(34.dp))
         }
     }
 }
@@ -136,10 +139,26 @@ fun MappaScreen(viewModel: WeatherViewModel = viewModel()) {
     val regioneAttiva by viewModel.regioneSelezionata.collectAsState()
     val puntoSelezionato by viewModel.puntoSelezionato.collectAsState()
     val context = LocalContext.current
+    val lifecycleOwner = LocalLifecycleOwner.current
 
-    val oraAttuale = remember { LocalTime.now().hour }
-    val dataAttuale = remember { LocalDate.now() }
+    var oraAttuale by remember { mutableStateOf(LocalTime.now().hour) }
+    var dataAttuale by remember { mutableStateOf(LocalDate.now()) }
     val formatterGiorno = remember { DateTimeFormatter.ofPattern("EEE d", Locale.ITALIAN) }
+
+    // Aggiorna l'ora e i dati quando l'app torna in primo piano
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME) {
+                oraAttuale = LocalTime.now().hour
+                dataAttuale = LocalDate.now()
+                viewModel.refreshData()
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
+        }
+    }
 
     // --- LOGICA TASTO INDIETRO ---
     BackHandler(enabled = regioneAttiva != null) {
@@ -306,50 +325,106 @@ fun MappaScreen(viewModel: WeatherViewModel = viewModel()) {
 
                                 Spacer(modifier = Modifier.height(12.dp))
 
-                                Row(modifier = Modifier.horizontalScroll(rememberScrollState())) {
-                                    for (i in 0 until 48) {
-                                        val oreTotali = oraAttuale + i
-                                        val giorniDaAggiungere = oreTotali / 24
-                                        val oraVisualizzata = oreTotali % 24
-                                        val labelGiorno = dataAttuale.plusDays(giorniDaAggiungere.toLong()).format(formatterGiorno)
-                                        val labelOra = String.format("%02d:00", oraVisualizzata)
-                                        val altezza = punto.previsioniOnde.getOrNull(oreTotali) ?: 0.0
-                                        val dirVento = punto.direzioniVento.getOrNull(oreTotali) ?: 0.0
-                                        val velVento = punto.velocitaVento.getOrNull(oreTotali) ?: 0.0
-                                        val tempAcqua = punto.temperaturaAcqua.getOrNull(oreTotali) ?: 0.0
-                                        val wCode = punto.weatherCodes.getOrNull(oreTotali) ?: 0
-
-                                        val colorePrevisione = when {
-                                            altezza < 0.5 -> Color(0xFF00BCD4)
-                                            altezza < 1.2 -> Color(0xFF1976D2)
-                                            else -> Color(0xFFD32F2F)
+                                Row(verticalAlignment = Alignment.Top) {
+                                    // Icone fisse laterali (Vento, Mare, Meteo)
+                                    Column(
+                                        modifier = Modifier.padding(top = 44.dp, end = 8.dp),
+                                        horizontalAlignment = Alignment.CenterHorizontally,
+                                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                                    ) {
+                                        Box(Modifier.height(32.dp), contentAlignment = Alignment.Center) {
+                                            Icon(Icons.Outlined.Air, null, tint = Color(0xFF455A64), modifier = Modifier.size(20.dp))
                                         }
+                                        Box(Modifier.height(32.dp), contentAlignment = Alignment.Center) {
+                                            Icon(Icons.Outlined.Waves, null, tint = Color(0xFF0288D1), modifier = Modifier.size(20.dp))
+                                        }
+                                        Box(Modifier.height(42.dp), contentAlignment = Alignment.Center) {
+                                            Icon(Icons.Outlined.Thermostat, null, tint = Color(0xFFE65100), modifier = Modifier.size(20.dp))
+                                        }
+                                    }
 
-                                        Column(
-                                            horizontalAlignment = Alignment.CenterHorizontally,
-                                            modifier = Modifier
-                                                .padding(horizontal = 10.dp)
-                                                .background(
-                                                    if (i == 0) Color(0xFF0277BD).copy(alpha = 0.05f) else Color.Transparent,
-                                                    RoundedCornerShape(12.dp)
-                                                )
-                                                .padding(8.dp)
-                                        ) {
-                                            Text(labelGiorno.uppercase(), fontSize = 8.sp, fontWeight = FontWeight.Black, color = if (giorniDaAggiungere == 0) Color.Gray else Color(0xFF388E3C))
-                                            Text(labelOra, fontSize = 11.sp, fontWeight = FontWeight.Medium, color = Color.Black)
-                                            Icon(
-                                                imageVector = Icons.Outlined.KeyboardArrowUp,
-                                                contentDescription = null,
+                                    Row(modifier = Modifier.horizontalScroll(rememberScrollState())) {
+                                        for (i in 0 until 48) {
+                                            val oreTotali = oraAttuale + i
+                                            val giorniDaAggiungere = oreTotali / 24
+                                            val oraVisualizzata = oreTotali % 24
+                                            val labelGiorno = dataAttuale.plusDays(giorniDaAggiungere.toLong()).format(formatterGiorno)
+                                            val labelOra = String.format("%02d:00", oraVisualizzata)
+                                            val altezza = punto.previsioniOnde.getOrNull(oreTotali) ?: 0.0
+                                            val dirVento = punto.direzioniVento.getOrNull(oreTotali) ?: 0.0
+                                            val velVento = punto.velocitaVento.getOrNull(oreTotali) ?: 0.0
+                                            val tempAcqua = punto.temperaturaAcqua.getOrNull(oreTotali) ?: 0.0
+                                            val tempAmbiente = punto.temperaturaAmbiente.getOrNull(oreTotali) ?: 0.0
+                                            val wCode = punto.weatherCodes.getOrNull(oreTotali) ?: 0
+
+                                            val colorePrevisione = when {
+                                                altezza < 0.5 -> Color(0xFF00BCD4)
+                                                altezza < 1.2 -> Color(0xFF1976D2)
+                                                else -> Color(0xFFD32F2F)
+                                            }
+
+                                            Column(
+                                                horizontalAlignment = Alignment.CenterHorizontally,
                                                 modifier = Modifier
-                                                    .size(20.dp)
-                                                    .rotate(dirVento.toFloat() + 180f),
-                                                tint = Color(0xFF455A64)
-                                            )
-                                            Text("${velVento.toInt()} km/h", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF546E7A))
-                                            Text("${altezza}m", fontWeight = FontWeight.ExtraBold, fontSize = 15.sp, color = colorePrevisione)
-                                            Text("${tempAcqua.toInt()}°C", fontSize = 11.sp, fontWeight = FontWeight.Bold, color = Color(0xFF0288D1))
-                                            Spacer(modifier = Modifier.height(4.dp))
-                                            WeatherIconAnimata(wCode, oraVisualizzata in 6..20)
+                                                    .padding(horizontal = 8.dp)
+                                                    .background(
+                                                        if (i == 0) Color(0xFF0277BD).copy(alpha = 0.05f) else Color.Transparent,
+                                                        RoundedCornerShape(12.dp)
+                                                    )
+                                                    .padding(8.dp)
+                                            ) {
+                                                Text(labelGiorno.uppercase(), fontSize = 8.sp, fontWeight = FontWeight.Black, color = if (giorniDaAggiungere == 0) Color.Gray else Color(0xFF388E3C))
+                                                Text(labelOra, fontSize = 11.sp, fontWeight = FontWeight.Medium, color = Color.Black)
+
+                                                Spacer(modifier = Modifier.height(8.dp))
+
+                                                Column(
+                                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                                                ) {
+                                                    // GRUPPO VENTO: Direzione e Velocità
+                                                    Row(
+                                                        modifier = Modifier.height(32.dp),
+                                                        verticalAlignment = Alignment.CenterVertically,
+                                                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                                                    ) {
+                                                        Icon(
+                                                            imageVector = Icons.Outlined.KeyboardArrowUp,
+                                                            contentDescription = null,
+                                                            modifier = Modifier
+                                                                .size(32.dp)
+                                                                .rotate(dirVento.toFloat() + 180f),
+                                                            tint = Color(0xFF455A64)
+                                                        )
+                                                        Text("${velVento.toInt()} km/h", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color(0xFF546E7A))
+                                                    }
+
+                                                    // GRUPPO MARE: Altezza onda e Temperatura
+                                                    Row(
+                                                        modifier = Modifier.height(32.dp),
+                                                        verticalAlignment = Alignment.CenterVertically,
+                                                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                                    ) {
+                                                        Text("${altezza}m", fontWeight = FontWeight.ExtraBold, fontSize = 15.sp, color = colorePrevisione)
+                                                        Text("${tempAcqua.toInt()}°C", fontSize = 11.sp, fontWeight = FontWeight.Bold, color = Color(0xFF0288D1))
+                                                    }
+
+                                                    // GRUPPO METEO: Icona Animata e Temperatura Ambiente
+                                                    Row(
+                                                        modifier = Modifier.height(42.dp),
+                                                        verticalAlignment = Alignment.CenterVertically,
+                                                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                                                    ) {
+                                                        WeatherIconAnimata(wCode, oraVisualizzata in 6..20)
+                                                        Text(
+                                                            "${tempAmbiente.toInt()}°C",
+                                                            fontSize = 11.sp,
+                                                            fontWeight = FontWeight.Bold,
+                                                            color = Color(0xFFE65100)
+                                                        )
+                                                    }
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -360,7 +435,10 @@ fun MappaScreen(viewModel: WeatherViewModel = viewModel()) {
 
                 if (regioneAttiva != null) {
                     Button(
-                        onClick = { viewModel.selezionaRegione(null) },
+                        onClick = {
+                            viewModel.selezionaRegione(null)
+                            viewModel.selezionaPunto(null)
+                        },
                         modifier = Modifier.padding(bottom = 24.dp),
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0277BD)),
                         shape = RoundedCornerShape(50)
